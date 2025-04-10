@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Float, Text3D, Center, PerspectiveCamera } from '@react-three/drei';
-import { Vector3 } from 'three';
+import { Mesh, Group } from 'three';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const FloatingObject = ({ position, color, size, speed, rotationFactor }: { 
@@ -12,7 +12,7 @@ const FloatingObject = ({ position, color, size, speed, rotationFactor }: {
   speed: number,
   rotationFactor: number
 }) => {
-  const mesh = useRef<THREE.Mesh>(null);
+  const mesh = useRef<Mesh>(null);
   const [hover, setHover] = useState(false);
   
   useFrame((state, delta) => {
@@ -40,7 +40,7 @@ const FloatingObject = ({ position, color, size, speed, rotationFactor }: {
 };
 
 const FloatingTitle = () => {
-  const textRef = useRef<THREE.Group>(null);
+  const textRef = useRef<Group>(null);
   const isMobile = useIsMobile();
   
   useFrame(({ clock }) => {
@@ -80,6 +80,38 @@ const FloatingTitle = () => {
   );
 };
 
+// Add a new 3D image component
+const FloatingImage = () => {
+  const mesh = useRef<Group>(null);
+  const isMobile = useIsMobile();
+  
+  useFrame(({ clock }) => {
+    if (mesh.current) {
+      mesh.current.rotation.y = Math.sin(clock.elapsedTime * 0.3) * 0.2;
+      mesh.current.position.y = Math.sin(clock.elapsedTime * 0.5) * 0.2;
+    }
+  });
+  
+  return (
+    <group ref={mesh} position={[0, 0, -1]} scale={isMobile ? 1.5 : 2}>
+      <Float floatIntensity={0.5} rotationIntensity={0.2} speed={2}>
+        <mesh>
+          <torusKnotGeometry args={[1, 0.3, 128, 32, 2, 3]} />
+          <meshPhysicalMaterial 
+            color="#8b5cf6" 
+            roughness={0.1} 
+            metalness={0.8} 
+            emissive="#5b00ff" 
+            emissiveIntensity={0.4}
+            clearcoat={1}
+            clearcoatRoughness={0.1}
+          />
+        </mesh>
+      </Float>
+    </group>
+  );
+};
+
 const HeroScene = () => {
   const isMobile = useIsMobile();
   const [mounted, setMounted] = useState(false);
@@ -96,8 +128,10 @@ const HeroScene = () => {
       <ambientLight intensity={0.4} />
       <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#bf9dff" />
+      <pointLight position={[0, 0, 5]} intensity={0.5} color="#bf9dff" />
       
       <FloatingTitle />
+      <FloatingImage />
       
       <FloatingObject position={[-5, -2, -5]} color="#4f46e5" size={isMobile ? 0.2 : 0.5} speed={1.5} rotationFactor={0.3} />
       <FloatingObject position={[5, 3, -7]} color="#8b5cf6" size={isMobile ? 0.3 : 0.7} speed={1.2} rotationFactor={0.2} />

@@ -5,6 +5,7 @@ import HeroScene from '@/components/HeroScene';
 import SectionHeading from '@/components/SectionHeading';
 import AnimatedCard from '@/components/AnimatedCard';
 import ContactForm from '@/components/ContactForm';
+import TypingText from '@/components/TypingText';
 import { motion } from 'framer-motion';
 import { ArrowDown, ExternalLink, Mail, MapPin, Phone } from 'lucide-react';
 
@@ -92,60 +93,76 @@ const Index = () => {
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <HeroScene />
-        <div className="container mx-auto px-4 z-10 text-center pt-24">
+        <div className="container mx-auto px-4 z-10 pt-24 flex flex-col lg:flex-row items-center justify-between">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="mb-6"
+            className="text-center lg:text-left lg:w-1/2 mb-12 lg:mb-0"
           >
             <div className="inline-block text-sm px-4 py-2 bg-primary/10 rounded-full text-primary mb-6">
               Welcome to my Portfolio
             </div>
+            
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+              <span className="block">Hi, I'm</span>
+              <span className="text-gradient">
+                <TypingText 
+                  text="Creative 3D Developer" 
+                  typingSpeed={100} 
+                  className="inline-block animate-text-gradient"
+                />
+              </span>
+            </h1>
+            
+            <div className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto lg:mx-0 mb-10">
+              <TypingText 
+                text="Building immersive web experiences with cutting-edge technology and creative design." 
+                typingSpeed={30} 
+                startDelay={2400}
+              />
+            </div>
+            
+            <motion.div
+              initial={{ opacity: -0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <motion.a
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="#contact"
+                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-medium"
+              >
+                Get in Touch
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href="#about"
+                className="px-8 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium flex items-center justify-center gap-2"
+              >
+                <span>Learn More</span>
+                <ArrowDown className="w-4 h-4" />
+              </motion.a>
+            </motion.div>
           </motion.div>
           
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
-          >
-            <span className="block">Creative</span>
-            <span className="text-gradient animate-text-gradient">3D Developer</span>
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto mb-10"
-          >
-            Building immersive web experiences with cutting-edge technology and creative design.
-          </motion.p>
-          
+          {/* 3D floating shape on the right side */}
           <motion.div
-            initial={{ opacity: -0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="w-full lg:w-1/2 h-[300px] lg:h-[500px] relative perspective preserve-3d"
           >
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#contact"
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-medium"
-            >
-              Get in Touch
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#about"
-              className="px-8 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium flex items-center justify-center gap-2"
-            >
-              <span>Learn More</span>
-              <ArrowDown className="w-4 h-4" />
-            </motion.a>
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl transform rotate-6 animate-float opacity-70"></div>
+            <div className="absolute inset-0 w-full h-full glass rounded-3xl transform -rotate-3 animate-float opacity-80" style={{animationDelay: "1s"}}></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-64 h-64 md:w-80 md:h-80 relative">
+                {/* We'll have a 3D canvas here but it's already in HeroScene */}
+              </div>
+            </div>
           </motion.div>
         </div>
         

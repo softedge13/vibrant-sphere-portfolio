@@ -2,14 +2,21 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import TypingText from './TypingText';
 
 interface SectionHeadingProps {
   title: string;
   subtitle: string;
   className?: string;
+  animated?: boolean;
 }
 
-const SectionHeading: React.FC<SectionHeadingProps> = ({ title, subtitle, className }) => {
+const SectionHeading: React.FC<SectionHeadingProps> = ({ 
+  title, 
+  subtitle, 
+  className, 
+  animated = false 
+}) => {
   return (
     <div className={cn("text-center mb-12", className)}>
       <motion.div
@@ -20,7 +27,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({ title, subtitle, classN
         className="inline-block"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-gradient">
-          {title}
+          {animated ? <TypingText text={title} typingSpeed={70} /> : title}
         </h2>
         <div className="h-1 w-24 bg-primary rounded-full mx-auto mt-2 mb-4"></div>
       </motion.div>
@@ -32,7 +39,13 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({ title, subtitle, classN
         transition={{ duration: 0.5, delay: 0.2 }}
         className="text-muted-foreground max-w-2xl mx-auto"
       >
-        {subtitle}
+        {animated ? 
+          <TypingText 
+            text={subtitle} 
+            typingSpeed={30} 
+            startDelay={title.length * 70 + 500} 
+          /> 
+          : subtitle}
       </motion.p>
     </div>
   );
