@@ -1,26 +1,268 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vibrant-sphere-portfolio</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+    <title>Portfolio</title>
+    <meta name="description" content="Creative 3D Developer Portfolio" />
+    <meta name="author" content="Portfolio" />
 
-    <meta property="og:title" content="vibrant-sphere-portfolio" />
-    <meta property="og:description" content="Lovable Generated Project" />
+    <meta property="og:title" content="Creative 3D Developer Portfolio" />
+    <meta property="og:description" content="Creative 3D Developer Portfolio Showcase" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
+    <meta name="twitter:site" content="@portfolio" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
   </head>
-
   <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <div id="root">
+      <!-- Navigation -->
+      <header class="nav-header">
+        <div class="container">
+          <div class="nav-content">
+            <div class="logo">Portfolio</div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+              <button class="nav-item active" data-section="home">Home</button>
+              <button class="nav-item" data-section="about">About</button>
+              <button class="nav-item" data-section="certificates">Certificates</button>
+              <button class="nav-item" data-section="achievements">Achievements</button>
+              <button class="nav-item" data-section="contact">Contact</button>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn">
+              <span class="menu-icon"></span>
+            </button>
+          </div>
+          
+          <!-- Mobile Navigation -->
+          <div class="mobile-nav">
+            <div class="mobile-nav-content">
+              <button class="nav-item active" data-section="home">
+                <span class="icon home-icon"></span>
+                <span>Home</span>
+              </button>
+              <button class="nav-item" data-section="about">
+                <span class="icon user-icon"></span>
+                <span>About</span>
+              </button>
+              <button class="nav-item" data-section="certificates">
+                <span class="icon book-icon"></span>
+                <span>Certificates</span>
+              </button>
+              <button class="nav-item" data-section="achievements">
+                <span class="icon award-icon"></span>
+                <span>Achievements</span>
+              </button>
+              <button class="nav-item" data-section="contact">
+                <span class="icon mail-icon"></span>
+                <span>Contact</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main>
+        <!-- Home Section -->
+        <section id="home" class="section active">
+          <div id="canvas-container"></div>
+          <div class="container">
+            <div class="hero-content">
+              <div class="hero-text">
+                <div class="welcome-badge">Welcome to my Portfolio</div>
+                
+                <h1 class="hero-title">
+                  <span>Hi, I'm</span>
+                  <span class="gradient-text typing-text" id="hero-typing-text">Creative 3D Developer</span>
+                </h1>
+                
+                <p class="hero-description">
+                  I create stunning digital experiences with modern technologies. 
+                  Specializing in 3D visualization and interactive web applications.
+                </p>
+                
+                <div class="cta-buttons">
+                  <a href="#contact" class="btn primary-btn">Get In Touch</a>
+                  <a href="#about" class="btn secondary-btn">Learn More</a>
+                </div>
+                
+                <div class="social-links">
+                  <a href="#" class="social-link github"></a>
+                  <a href="#" class="social-link linkedin"></a>
+                  <a href="#" class="social-link twitter"></a>
+                  <a href="#" class="social-link instagram"></a>
+                </div>
+              </div>
+              
+              <div class="hero-visual">
+                <div class="gradient-bg"></div>
+                <div class="glass-panel"></div>
+                <div class="visual-content">
+                  <!-- 3D content from canvas is shown here -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+          <div class="container">
+            <div class="section-heading">
+              <h2 class="gradient-text">About Me</h2>
+              <div class="heading-line"></div>
+              <p class="section-subtitle">
+                Learn more about my skills and experience
+              </p>
+            </div>
+            
+            <div class="about-content">
+              <!-- About content goes here -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section id="certificates" class="section">
+          <div class="container">
+            <div class="section-heading">
+              <h2 class="gradient-text">Certificates</h2>
+              <div class="heading-line"></div>
+              <p class="section-subtitle">
+                Professional certifications and achievements
+              </p>
+            </div>
+            
+            <div class="certificates-content">
+              <!-- Certificates content goes here -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="section">
+          <div class="container">
+            <div class="section-heading">
+              <h2 class="gradient-text">Achievements</h2>
+              <div class="heading-line"></div>
+              <p class="section-subtitle">
+                Projects and accomplishments I'm proud of
+              </p>
+            </div>
+            
+            <div class="achievements-content">
+              <div class="cards-container">
+                <div class="animated-card">
+                  <div class="card-front">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1617042375876-a13e36732a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')">
+                      <h3 class="card-title">3D Visualization</h3>
+                    </div>
+                  </div>
+                  <div class="card-back">
+                    <h3 class="card-title">3D Visualization</h3>
+                    <p class="card-description">
+                      Creating immersive 3D environments for web and mobile applications.
+                    </p>
+                    <button class="card-btn">Learn More</button>
+                  </div>
+                </div>
+                
+                <div class="animated-card">
+                  <div class="card-front">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1593720213428-28a5b9e94613?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')">
+                      <h3 class="card-title">Web Development</h3>
+                    </div>
+                  </div>
+                  <div class="card-back">
+                    <h3 class="card-title">Web Development</h3>
+                    <p class="card-description">
+                      Building responsive and performant web applications with modern technologies.
+                    </p>
+                    <button class="card-btn">Learn More</button>
+                  </div>
+                </div>
+                
+                <div class="animated-card">
+                  <div class="card-front">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1601850494422-a283756ef267?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')">
+                      <h3 class="card-title">UX Design</h3>
+                    </div>
+                  </div>
+                  <div class="card-back">
+                    <h3 class="card-title">UX Design</h3>
+                    <p class="card-description">
+                      Creating intuitive and engaging user experiences across platforms.
+                    </p>
+                    <button class="card-btn">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+          <div class="container">
+            <div class="section-heading">
+              <h2 class="gradient-text">Contact Me</h2>
+              <div class="heading-line"></div>
+              <p class="section-subtitle">
+                Get in touch for collaborations or inquiries
+              </p>
+            </div>
+            
+            <div class="contact-content">
+              <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" required placeholder="Your name">
+                </div>
+                
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+                
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="5" required placeholder="Your message here..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                  <span class="btn-icon send-icon"></span>
+                  <span>Send Message</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <!-- Toast Notification -->
+      <div id="toast" class="toast">
+        <div class="toast-content">
+          <div class="toast-title">Message Sent!</div>
+          <div class="toast-description">Thanks for reaching out. I'll get back to you soon.</div>
+        </div>
+        <button class="toast-close">&times;</button>
+      </div>
+    </div>
+
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
+    <script src="script.js"></script>
+    <script src="3d-scene.js"></script>
   </body>
 </html>
