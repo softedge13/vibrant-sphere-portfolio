@@ -51,7 +51,7 @@ const TypingText: React.FC<TypingTextProps> = ({
   }, [currentIndex, text, typingSpeed, startTyping, onComplete]);
 
   return (
-    <span className={cn("", className)}>
+    <span className={cn("relative", className)}>
       {displayedText}
       {(cursorBlink && !isComplete) && (
         <span className="inline-block w-[2px] h-[1em] bg-primary animate-pulse ml-1 align-middle">

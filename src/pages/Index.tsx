@@ -129,12 +129,12 @@ const Index = () => {
         className={`min-h-screen flex items-center justify-center relative overflow-hidden ${activeSection === 'home' ? 'block' : 'hidden'}`}
       >
         <HeroScene />
-        <div className="container mx-auto px-4 z-10 pt-24 flex flex-col-reverse lg:flex-row items-center justify-between">
+        <div className="container mx-auto px-4 z-10 pt-24 flex flex-col lg:flex-row items-center justify-between">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-center lg:text-left lg:w-1/2 mb-12 lg:mb-0 mt-12 lg:mt-0 bg-background/80 p-8 rounded-lg backdrop-blur-sm"
+            className="text-center lg:text-left lg:w-1/2 mb-12 lg:mb-0 bg-background/80 p-8 rounded-lg backdrop-blur-sm"
           >
             <div className="inline-block text-sm px-4 py-2 bg-primary/10 rounded-full text-primary mb-6">
               Welcome to my Portfolio
@@ -142,7 +142,7 @@ const Index = () => {
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
               <span className="block">Hi, I'm</span>
-              <span className="text-gradient">
+              <span className="text-white bg-gradient-to-r from-primary via-blue-400 to-accent bg-clip-text">
                 <TypingText 
                   text="Creative 3D Developer" 
                   typingSpeed={100} 
@@ -190,12 +190,12 @@ const Index = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.7 }}
-            className="w-full lg:w-1/2 h-[300px] lg:h-[500px] relative perspective preserve-3d"
+            className="w-full lg:w-1/2 h-[300px] lg:h-[500px] relative perspective preserve-3d flex items-center justify-center"
           >
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl transform rotate-6 animate-float opacity-70"></div>
             <div className="absolute inset-0 w-full h-full glass rounded-3xl transform -rotate-3 animate-float opacity-80" style={{animationDelay: "1s"}}></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-64 h-64 md:w-80 md:h-80 relative">
+              <div className="w-full h-full md:w-80 md:h-80 relative">
                 {/* We'll have a 3D canvas here but it's already in HeroScene */}
               </div>
             </div>

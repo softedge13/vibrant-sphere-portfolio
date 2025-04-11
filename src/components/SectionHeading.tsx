@@ -26,7 +26,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
         transition={{ duration: 0.5 }}
         className="inline-block"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-gradient">
+        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-blue-400 to-accent bg-clip-text text-transparent">
           {animated ? <TypingText text={title} typingSpeed={70} cursorBlink={false} /> : title}
         </h2>
         <div className="h-1 w-24 bg-primary rounded-full mx-auto mt-2 mb-4"></div>
