@@ -8,6 +8,7 @@ interface TypingTextProps {
   typingSpeed?: number;
   startDelay?: number;
   onComplete?: () => void;
+  cursorBlink?: boolean;
 }
 
 const TypingText: React.FC<TypingTextProps> = ({
@@ -15,11 +16,13 @@ const TypingText: React.FC<TypingTextProps> = ({
   className,
   typingSpeed = 100,
   startDelay = 0,
-  onComplete
+  onComplete,
+  cursorBlink = true
 }) => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startTyping, setStartTyping] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     const delayTimer = setTimeout(() => {
@@ -39,17 +42,22 @@ const TypingText: React.FC<TypingTextProps> = ({
       }, typingSpeed);
 
       return () => clearTimeout(timer);
-    } else if (onComplete) {
-      onComplete();
+    } else {
+      setIsComplete(true);
+      if (onComplete) {
+        onComplete();
+      }
     }
   }, [currentIndex, text, typingSpeed, startTyping, onComplete]);
 
   return (
     <span className={cn("", className)}>
       {displayedText}
-      <span className="inline-block w-[2px] h-[1em] bg-primary animate-pulse ml-1 align-middle">
-        &nbsp;
-      </span>
+      {(cursorBlink && !isComplete) && (
+        <span className="inline-block w-[2px] h-[1em] bg-primary animate-pulse ml-1 align-middle">
+          &nbsp;
+        </span>
+      )}
     </span>
   );
 };

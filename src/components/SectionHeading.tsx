@@ -27,7 +27,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
         className="inline-block"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-gradient">
-          {animated ? <TypingText text={title} typingSpeed={70} /> : title}
+          {animated ? <TypingText text={title} typingSpeed={70} cursorBlink={false} /> : title}
         </h2>
         <div className="h-1 w-24 bg-primary rounded-full mx-auto mt-2 mb-4"></div>
       </motion.div>
@@ -44,6 +44,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
             text={subtitle} 
             typingSpeed={30} 
             startDelay={title.length * 70 + 500} 
+            cursorBlink={false}
           /> 
           : subtitle}
       </motion.p>

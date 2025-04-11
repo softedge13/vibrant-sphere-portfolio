@@ -12,27 +12,18 @@ const navItems = [
   { id: 'contact', label: 'Contact', icon: <Mail className="w-5 h-5" /> }
 ];
 
-const Navigation = () => {
+interface NavigationProps {
+  setActiveSection: (section: string) => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ setActiveSection }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveLocalSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   
   const handleScroll = () => {
-    const sections = document.querySelectorAll('section');
-    const scrollPosition = window.scrollY + 100;
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id') as string;
-
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        setActiveSection(sectionId);
-      }
-    });
-
     if (window.scrollY > 20) {
       setScrolled(true);
     } else {
@@ -47,14 +38,9 @@ const Navigation = () => {
     };
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
+  const handleSectionChange = (sectionId: string) => {
+    setActiveLocalSection(sectionId);
+    setActiveSection(sectionId);
     setIsOpen(false);
   };
 
@@ -68,7 +54,8 @@ const Navigation = () => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-2xl font-bold text-gradient"
+          className="text-2xl font-bold text-gradient cursor-pointer"
+          onClick={() => handleSectionChange('home')}
         >
           Portfolio
         </motion.div>
@@ -78,7 +65,8 @@ const Navigation = () => {
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
+              onClick={() => handleSectionChange(item.id)}
+              data-section={item.id}
               className={cn(
                 "text-sm font-medium transition-colors relative py-2 px-1",
                 activeSection === item.id 
@@ -124,7 +112,8 @@ const Navigation = () => {
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => handleSectionChange(item.id)}
+                  data-section={item.id}
                   className={cn(
                     "flex items-center space-x-2 p-3 rounded-lg transition-colors",
                     activeSection === item.id 

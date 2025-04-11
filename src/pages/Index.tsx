@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroScene from '@/components/HeroScene';
 import SectionHeading from '@/components/SectionHeading';
@@ -86,19 +86,55 @@ const SkillBar = ({ name, level }: { name: string; level: number }) => {
 };
 
 const Index = () => {
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    // Update active section based on navigation clicks
+    const handleNavClick = (e: Event) => {
+      const target = e.target as HTMLElement;
+      const navButton = target.closest('button');
+      if (navButton && navButton.dataset.section) {
+        setActiveSection(navButton.dataset.section);
+      }
+    };
+
+    document.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', handleNavClick);
+    });
+
+    return () => {
+      document.querySelectorAll('button').forEach(button => {
+        button.removeEventListener('click', handleNavClick);
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    // Update Navigation component with the active section data attribute
+    const buttons = document.querySelectorAll('nav button');
+    buttons.forEach(button => {
+      if (button.textContent?.toLowerCase().includes(activeSection)) {
+        button.setAttribute('data-section', activeSection);
+      }
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      <Navigation setActiveSection={setActiveSection} />
       
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section 
+        id="home" 
+        className={`min-h-screen flex items-center justify-center relative overflow-hidden ${activeSection === 'home' ? 'block' : 'hidden'}`}
+      >
         <HeroScene />
-        <div className="container mx-auto px-4 z-10 pt-24 flex flex-col lg:flex-row items-center justify-between">
+        <div className="container mx-auto px-4 z-10 pt-24 flex flex-col-reverse lg:flex-row items-center justify-between">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-center lg:text-left lg:w-1/2 mb-12 lg:mb-0"
+            className="text-center lg:text-left lg:w-1/2 mb-12 lg:mb-0 mt-12 lg:mt-0 bg-background/80 p-8 rounded-lg backdrop-blur-sm"
           >
             <div className="inline-block text-sm px-4 py-2 bg-primary/10 rounded-full text-primary mb-6">
               Welcome to my Portfolio
@@ -129,23 +165,23 @@ const Index = () => {
               transition={{ duration: 0.8, delay: 1.1 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <motion.a
+              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="#contact"
+                onClick={() => setActiveSection('contact')}
                 className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-medium"
               >
                 Get in Touch
-              </motion.a>
-              <motion.a
+              </motion.button>
+              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="#about"
+                onClick={() => setActiveSection('about')}
                 className="px-8 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium flex items-center justify-center gap-2"
               >
                 <span>Learn More</span>
                 <ArrowDown className="w-4 h-4" />
-              </motion.a>
+              </motion.button>
             </motion.div>
           </motion.div>
           
@@ -166,13 +202,19 @@ const Index = () => {
           </motion.div>
         </div>
         
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <motion.div 
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+          onClick={() => setActiveSection('about')}
+        >
           <ArrowDown className="w-8 h-8 opacity-50" />
-        </div>
+        </motion.div>
       </section>
       
       {/* About Section */}
-      <section id="about" className="py-24 bg-background">
+      <section 
+        id="about" 
+        className={`py-24 bg-background min-h-screen flex items-center ${activeSection === 'about' ? 'block' : 'hidden'}`}
+      >
         <div className="container mx-auto px-4">
           <SectionHeading 
             title="About Me" 
@@ -198,14 +240,14 @@ const Index = () => {
               </p>
               
               <div className="flex gap-4 pt-4">
-                <motion.a
+                <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  href="#contact"
+                  onClick={() => setActiveSection('contact')}
                   className="px-6 py-2 bg-primary text-primary-foreground rounded-lg font-medium flex items-center gap-2"
                 >
                   <span>Contact Me</span>
-                </motion.a>
+                </motion.button>
                 <motion.a
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -238,7 +280,10 @@ const Index = () => {
       </section>
       
       {/* Certificates Section */}
-      <section id="certificates" className="py-24 bg-secondary/5">
+      <section 
+        id="certificates" 
+        className={`py-24 bg-secondary/5 min-h-screen flex items-center ${activeSection === 'certificates' ? 'block' : 'hidden'}`}
+      >
         <div className="container mx-auto px-4">
           <SectionHeading 
             title="Certificates" 
@@ -260,7 +305,10 @@ const Index = () => {
       </section>
       
       {/* Achievements Section */}
-      <section id="achievements" className="py-24 bg-background">
+      <section 
+        id="achievements" 
+        className={`py-24 bg-background min-h-screen flex items-center ${activeSection === 'achievements' ? 'block' : 'hidden'}`}
+      >
         <div className="container mx-auto px-4">
           <SectionHeading 
             title="Achievements" 
@@ -282,7 +330,10 @@ const Index = () => {
       </section>
       
       {/* Contact Section */}
-      <section id="contact" className="py-24 bg-secondary/5">
+      <section 
+        id="contact" 
+        className={`py-24 bg-secondary/5 min-h-screen flex items-center ${activeSection === 'contact' ? 'block' : 'hidden'}`}
+      >
         <div className="container mx-auto px-4">
           <SectionHeading 
             title="Contact Me" 
